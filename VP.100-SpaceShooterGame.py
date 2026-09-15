@@ -1,13 +1,17 @@
 #import the pygame library 
 import pygame
 
+import os
 #VP.100 - Space Shooter Game
+
 
 #variables for screen size: 
 screen_width=690 
 screen_height=290
 
 #other variable initializers (fonts, text, images, etc)
+font = pygame.font.SysFont("comicsansms", 72)
+text = font.render("Space Shooter Game", True, (0, 128, 0))
 
 print("Hi I am a space ship!!!")
 
@@ -16,17 +20,19 @@ name=input("Please enter your name: ")
 print("Hello", name)
 print("Wow you are", name, "nice!")
 
-user=input("Are you ready to play my game?!?!?!?! Yes/No")
+keep_going = input("Are you ready to play my game?!?!?!?! Yes/No")
 
-def Yes():
+while Yes:
     print("Ok, lets do this!")
 
-Yes()
-
-def No():
+while No:
     print("Oh... well then whatever..")
 
-No()
+print("Creator: This is where the adventure begins?!?!?!?!")
+print("Uhhhhh..?..!??", name, "......")
+print("Creator: oh btw the credit of this game goes to Caleb A!!")
+print("Ahhh man I should stop glazing myself, and let the user play the game already.")
+print("Alright then enjoy my game I made then!!!")
 
 #the clock will be used to regulate the frame rate
 clock = pygame.time.Clock()
@@ -41,7 +47,7 @@ BLUE = (0, 0, 255)
 WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
 
-# What will make you get points (Enemy variables, )
+# What will make you get points (Enemy variables, survive)
 
 #variable controls the game loop
 keep_playing=True

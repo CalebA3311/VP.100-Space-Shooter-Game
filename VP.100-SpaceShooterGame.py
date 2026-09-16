@@ -4,6 +4,9 @@ import pygame
 import os
 #VP.100 - Space Shooter Game
 
+#using turtle for drawing things
+import turtle
+
 #start the pygame module
 pygame.init()
 
@@ -16,7 +19,12 @@ screen = pygame.display.set_mode((screen_width, screen_height))
 
 #other variable initializers (fonts, text, images, etc)
 font = pygame.font.SysFont("comicsansms", 72)
+
 text = font.render("Space Shooter Game", True, (0, 128, 0))
+
+carImg = pygame.image.load('SpaceShooter.png')
+x1=150
+y1=30
 
 print("Hi I am a space ship!!!")
 
@@ -42,6 +50,7 @@ print("Alright then enjoy my game I made then!!!")
 #player position
 
 
+
 #the clock will be used to regulate the frame rate
 clock = pygame.time.Clock()
 
@@ -49,9 +58,20 @@ clock = pygame.time.Clock()
 pygame.display.set_caption("Space Shooter Game!")
 
 # Background Colors
+RED = (255, 0, 0)
 WHITE = (255, 255, 255)
 
 # What will make you get points (Enemy variables, survive)
+
+
+
+x=472
+y=334
+#this code will still draw the circle in the same place as the code above
+pygame.draw.circle(screen, RED, [472, 334], 40)
+
+#the clock will be used to regulate the frame rate
+clock = pygame.time.Clock()
 
 #variable controls the game loop
 keep_playing=True
@@ -64,13 +84,20 @@ while keep_playing==True:
       if event.type == pygame.QUIT: 
         keep_playing = False
 
-
     #controls for the game
     pressed = pygame.key.get_pressed()
     if pressed[pygame.K_LEFT]:
-     x1 =3
+     x1 =x1- 3
     if pressed[pygame.K_RIGHT]:
      x1 =x1+ 3
+    if pressed[pygame.K_a]:
+     x1 =x1- 3
+    if pressed[pygame.K_d]:
+     x1 =x1+ 3
+
+    #all items drawn to the screen
+
+    screen.blit((x1,y1))
 
     #all items drawn to the screen go here
     pygame.draw.line(screen, WHITE, [0, 0], [100,100], 5)

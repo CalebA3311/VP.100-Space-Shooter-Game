@@ -1,11 +1,12 @@
 #import the pygame library 
 import pygame
 
+#anchor the pygame screen.
+#Click on the arrow in the upper left corner to display in a new browser tab.
 import os
-#VP.100 - Space Shooter Game
+os.environ['SDL_VIDEO_WINDOW_POS'] = "%d,%d" % (0,0)
 
-#using turtle for drawing things
-import turtle
+#VP.100 - Space Shooter Game
 
 #start the pygame module
 pygame.init()
@@ -46,10 +47,7 @@ print("Uhhhhh..?..!??", name, "......")
 print("Creator: oh btw the credit of this game goes to Caleb A!!")
 print("Ahhh man I should stop glazing myself, and let the user play the game already.")
 print("Alright then enjoy my game I made then!!!")
-
-#player position
-
-
+print("You might like it, I'm fine if you don't")
 
 #the clock will be used to regulate the frame rate
 clock = pygame.time.Clock()
@@ -57,13 +55,24 @@ clock = pygame.time.Clock()
 #set the screen caption 
 pygame.display.set_caption("Space Shooter Game!")
 
-# Background Colors
+# Background Colors or Code Color Constants
 RED = (255, 0, 0)
 WHITE = (255, 255, 255)
+BLUE = (0, 0, 255)
+
+#fills the screen initially with white
+screen.fill((255, 255, 255))
+
+#position of the player on start
 
 # What will make you get points (Enemy variables, survive)
 
 
+
+x=265
+y=112
+#this code will still draw the circle in the same place as the code above
+pygame.draw.circle(screen, RED, [265, 112], 40)
 
 x=472
 y=334
@@ -96,8 +105,9 @@ while keep_playing==True:
      x1 =x1+ 3
 
     #all items drawn to the screen
+    pygame.draw.rect(screen, RED, [75, 10, 50, 20], 2)
 
-    screen.blit((x1,y1))
+    screen.blit(text,(50, 100))
 
     #all items drawn to the screen go here
     pygame.draw.line(screen, WHITE, [0, 0], [100,100], 5)

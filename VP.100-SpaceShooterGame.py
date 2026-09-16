@@ -4,6 +4,8 @@ import pygame
 import os
 #VP.100 - Space Shooter Game
 
+#start the pygame module
+pygame.init()
 
 #variables for screen size: 
 screen_width=690 
@@ -22,17 +24,24 @@ print("Wow you are", name, "nice!")
 
 keep_going = input("Are you ready to play my game?!?!?!?! Yes/No")
 
-while Yes:
-    print("Ok, lets do this!")
+if keep_going == "Yes":
+   print("Ok, lets do this!")
 
-while No:
-    print("Oh... well then whatever..")
+if keep_going == "No":
+   print("Oh... well then whatever..")
 
 print("Creator: This is where the adventure begins?!?!?!?!")
 print("Uhhhhh..?..!??", name, "......")
 print("Creator: oh btw the credit of this game goes to Caleb A!!")
 print("Ahhh man I should stop glazing myself, and let the user play the game already.")
 print("Alright then enjoy my game I made then!!!")
+
+#controls for the game
+pressed = pygame.key.get_pressed()
+if pressed[pygame.K_LEFT]:
+  x1 =3
+if pressed[pygame.K_RIGHT]:
+  x1 =x1+ 3
 
 #the clock will be used to regulate the frame rate
 clock = pygame.time.Clock()

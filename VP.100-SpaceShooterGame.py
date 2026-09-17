@@ -1,5 +1,6 @@
 #import the pygame library 
 import pygame
+from pygame.locals import *
 
 #anchor the pygame screen.
 #Click on the arrow in the upper left corner to display in a new browser tab.
@@ -12,11 +13,15 @@ os.environ['SDL_VIDEO_WINDOW_POS'] = "%d,%d" % (0,0)
 pygame.init()
 
 #variables for screen size: 
-screen_width=690 
-screen_height=290
+screen_width=1124 
+screen_height=834
 
 #create a screen with dimensions 
-screen = pygame.display.set_mode((screen_width, screen_height))
+screen = pygame.display.set_mode((1124, 834))
+surface = pygame.image.load(())
+clock = pygame.time.Clock()
+running = True
+dt = 0
 
 #other variable initializers (fonts, text, images, etc)
 font = pygame.font.SysFont("comicsansms", 72)
@@ -65,6 +70,9 @@ screen.fill((255, 255, 255))
 
 #position of the player on start
 
+player.x = 244
+player.y = 444
+
 # What will make you get points (Enemy variables, survive)
 
 
@@ -95,13 +103,9 @@ while keep_playing==True:
 
     #controls for the game
     pressed = pygame.key.get_pressed()
-    if pressed[pygame.K_LEFT]:
+    if pressed[pygame.K_LEFT] and pressed[pygame.K_a]:
      x1 =x1- 3
-    if pressed[pygame.K_RIGHT]:
-     x1 =x1+ 3
-    if pressed[pygame.K_a]:
-     x1 =x1- 3
-    if pressed[pygame.K_d]:
+    if pressed[pygame.K_RIGHT] and pressed[pygame.K_d]:
      x1 =x1+ 3
 
     #all items drawn to the screen

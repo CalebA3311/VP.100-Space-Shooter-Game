@@ -18,7 +18,6 @@ screen_height=834
 
 #create a screen with dimensions 
 screen = pygame.display.set_mode((1124, 834))
-surface = pygame.image.load(())
 clock = pygame.time.Clock()
 running = True
 dt = 0
@@ -48,11 +47,27 @@ if keep_going == "No":
    print("Oh... well then whatever..")
 
 print("Creator: This is where the adventure begins?!?!?!?!")
-print("Uhhhhh..?..!??", name, "......")
+keep_going = input("Uhhhhh..?..!??", name, "...... Mb/Hi")
+
+if keep_going == "Mb":
+  print("Oh your fine I was just worried about you.")
+
+if keep_going == "Hi":
+  print("Oh hi??, you awake now I see.")
+
 print("Creator: oh btw the credit of this game goes to Caleb A!!")
 print("Ahhh man I should stop glazing myself, and let the user play the game already.")
 print("Alright then enjoy my game I made then!!!")
-print("You might like it, I'm fine if you don't")
+keep_going = input("You might like it, I'm fine if you don't. Thanks/Ok/Cool")
+
+if keep_going == "Thanks":
+  print("You're welcome as always!!")
+
+if keep_going == "Ok":
+  print("Thumbs Up Emoji.")
+
+if keep_going == "Cool":
+  print("-o-")
 
 #the clock will be used to regulate the frame rate
 clock = pygame.time.Clock()

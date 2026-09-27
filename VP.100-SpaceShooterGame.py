@@ -5,7 +5,7 @@ from pygame.locals import *
 #anchor the pygame screen.
 #Click on the arrow in the upper left corner to display in a new browser tab.
 import os
-os.environ['SDL_VIDEO_WINDOW_POS'] = "%d,%d" % (0,0)
+os.environ['SDL_VIDEO_WINDOW_POS'] = "%d,%d" % (25, 25)
 
 #VP.100 - Space Shooter Game
 
@@ -13,130 +13,127 @@ os.environ['SDL_VIDEO_WINDOW_POS'] = "%d,%d" % (0,0)
 pygame.init()
 
 #variables for screen size: 
-screen_width=1124 
+screen_width=1124
 screen_height=834
 
 #create a screen with dimensions 
-screen = pygame.display.set_mode((1124, 834))
+screen = pygame.display.set_mode((screen_width, screen_height))
+game_title = pygame.display.set_caption("Space Shooter Game!")
 clock = pygame.time.Clock()
-running = True
-dt = 0
 
 #other variable initializers (fonts, text, images, etc)
-font = pygame.font.SysFont("comicsansms", 72)
-
-text = font.render("Space Shooter Game", True, (0, 128, 0))
-
-carImg = pygame.image.load('SpaceShooter.png')
-x1=150
-y1=30
-
-print("Hi I am a space ship!!!")
-
-#name for the space ship
-name=input("Please enter your name: ")
-print("Hello", name)
-print("Wow you are", name, "nice!")
-
-keep_going = input("Are you ready to play my game?!?!?!?! Yes/No")
-
-if keep_going == "Yes":
-   print("Ok, lets do this!")
-
-if keep_going == "No":
-   print("Oh... well then whatever..")
-
-print("Creator: This is where the adventure begins?!?!?!?!")
-keep_going = input("Uhhhhh..?..!??", name, "...... Mb/Hi")
-
-if keep_going == "Mb":
-  print("Oh your fine I was just worried about you.")
-
-if keep_going == "Hi":
-  print("Oh hi??, you awake now I see.")
-
-print("Creator: oh btw the credit of this game goes to Caleb A!!")
-print("Ahhh man I should stop glazing myself, and let the user play the game already.")
-print("Alright then enjoy my game I made then!!!")
-keep_going = input("You might like it, I'm fine if you don't. Thanks/Ok/Cool")
-
-if keep_going == "Thanks":
-  print("You're welcome as always!!")
-
-if keep_going == "Ok":
-  print("Thumbs Up Emoji.")
-
-if keep_going == "Cool":
-  print("-o-")
-
-#the clock will be used to regulate the frame rate
-clock = pygame.time.Clock()
-
-#set the screen caption 
-pygame.display.set_caption("Space Shooter Game!")
+font = pygame.font.SysFont("comicsansms", 40)
 
 # Background Colors or Code Color Constants
 RED = (255, 0, 0)
 WHITE = (255, 255, 255)
-BLUE = (0, 0, 255)
+LIGHT = (170, 170, 170)
+DARK = (100, 100, 100)
+BG = (0, 0, 0)
 
 #fills the screen initially with white
-screen.fill((255, 255, 255))
+screen.fill(BG)
 
 #position of the player on start
+player_image = pygame.image.load("SpaceShooter.png")
+player_image_surface = player_image.convert()
+player = pygame.transform.scale(player_image_surface, (50, 40))
+player_rect = player.get_rect(center=(screen_width // 2, screen_height - 50))
+player_speed = 10
 
-player.x = 244
-player.y = 444
+#setup bullets
+bullets = []
+bullet_speed = -4
 
 # What will make you get points (Enemy variables, survive)
 
+#tests if running variable is true and if it is the loop keeps repeating
+def play_game():
+    running = True
+    space_pressed = False
+    dt = 0
+    while running:
+        clock.tick(60)
+        screen.fill((0, 0, 0))
+        #iterates over the current list of events(checks for events)  
+        for event in pygame.event.get(): 
+            #will stop the game loop if escape is pressed (doesn't work in Codio)
+            if event.type == pygame.QUIT: 
+                running = False
+            elif event.type == pygame.KEYDOWN and event.key in (pygame.K_ESCAPE, pygame.K_q):
+                running = False
 
+        #controls for the game
+        keys = pygame.key.get_pressed()
+        #move player left
+        if keys[pygame.K_LEFT] and player_rect.left > 0:
+            player_rect.x -= player_speed
+        #move player right
+        if keys[pygame.K_RIGHT] and player_rect.right < screen_width:
+            player_rect.x += player_speed
+        
+        #shoot bullet and lock space bar
+        if keys[pygame.K_SPACE] and not space_pressed:
+            space_pressed = True
+            if len(bullets) < 8:
+                #This gets the player, sets the width of the bullet
+                #And centers the bullet to the player
+                rect = player.get_rect(center=player_rect.center)
+                rect.width = 10
+                rect.center = player_rect.center
+                bullets.append(rect)
 
-x=265
-y=112
-#this code will still draw the circle in the same place as the code above
-pygame.draw.circle(screen, RED, [265, 112], 40)
+        #unlock space                
+        if not keys[pygame.K_SPACE] and space_pressed:
+            space_pressed = False
 
-x=472
-y=334
-#this code will still draw the circle in the same place as the code above
-pygame.draw.circle(screen, RED, [472, 334], 40)
+        for bullet in bullets:
+            bullet.y += bullet_speed
+            if bullet.bottom < 0:
+                bullets.remove(bullet)
+        
+        # Drawing the game out
+        for bullet in bullets:
+            pygame.draw.rect(screen, WHITE, bullet)
+        screen.blit(player, player_rect)
 
-#the clock will be used to regulate the frame rate
-clock = pygame.time.Clock()
+        #This function call updates the screen
+        pygame.display.flip()
 
-#variable controls the game loop
-keep_playing=True
+def start_menu():
+    while True:
+        screen.fill(BG)
+        #set the screen caption
+        game_title_font = pygame.font.SysFont("comicsansms", 72) 
+        game_title = game_title_font.render("Space Shooter Game!", True, WHITE)
+        mouse = pygame.mouse.get_pos()
+        play_button = pygame.Rect(300, 300, 140, 75)
+        quit_button = pygame.Rect(300, 380, 140, 75)
 
-#tests if keep_playing variable is true and if it is the loop keeps repeating
-while keep_playing==True:
-    #iterates over the current list of events(checks for events)  
-    for event in pygame.event.get(): 
-    #will stop the game loop if escape is pressed (doesn't work in Codio)
-      if event.type == pygame.QUIT: 
-        keep_playing = False
+        pygame.draw.rect(screen, LIGHT if play_button.collidepoint(mouse) else DARK, play_button)
+        pygame.draw.rect(screen, LIGHT if quit_button.collidepoint(mouse) else DARK, quit_button)
 
-    #controls for the game
-    pressed = pygame.key.get_pressed()
-    if pressed[pygame.K_LEFT] and pressed[pygame.K_a]:
-     x1 =x1- 3
-    if pressed[pygame.K_RIGHT] and pressed[pygame.K_d]:
-     x1 =x1+ 3
+        play_text = font.render("Play", True, WHITE)
+        quit_text = font.render("Quit", True, WHITE)
 
-    #all items drawn to the screen
-    pygame.draw.rect(screen, RED, [75, 10, 50, 20], 2)
+        screen.blit(game_title, (250, 150))
+        screen.blit(play_text, (335, 305))
+        screen.blit(quit_text, (335, 385))
 
-    screen.blit(text,(50, 100))
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
 
-    #all items drawn to the screen go here
-    pygame.draw.line(screen, WHITE, [0, 0], [100,100], 5)
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if play_button.collidepoint(mouse):
+                    play_game()
 
-    #This function call updates the screen
-    pygame.display.update()
+                if quit_button.collidepoint(mouse):
+                    pygame.quit()
+                    sys.exit()
 
-    #sets the frame rate
-    clock.tick(60)
+        pygame.display.update()
 
-#quits the pygame module 
-pygame.quit() 
-quit()           
+# to start the game out
+start_menu()

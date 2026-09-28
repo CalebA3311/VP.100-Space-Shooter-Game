@@ -23,6 +23,14 @@ clock = pygame.time.Clock()
 
 #other variable initializers (fonts, text, images, etc)
 font = pygame.font.SysFont("comicsansms", 40)
+text = font.render("Space Shooter Game", True, (0, 128, 0))
+carImg = pygame.image.load('SpaceShooter.png')
+
+#the clock will be used to regulate the frame rate
+clock = pygame.time.Clock()
+
+#set the screen caption 
+pygame.display.set_caption("Space Shooter Game!")
 
 # Background Colors or Code Color Constants
 RED = (255, 0, 0)
@@ -44,6 +52,12 @@ player_speed = 10
 #setup bullets
 bullets = []
 bullet_speed = -4
+
+#setup enemies
+enemies = []
+enemy_speed = 3
+enemy_height = 19
+enemy_width = 12
 
 # What will make you get points (Enemy variables, survive)
 

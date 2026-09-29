@@ -24,7 +24,6 @@ clock = pygame.time.Clock()
 #other variable initializers (fonts, text, images, etc)
 font = pygame.font.SysFont("comicsansms", 40)
 text = font.render("Space Shooter Game", True, (0, 128, 0))
-carImg = pygame.image.load('SpaceShooter.png')
 
 #the clock will be used to regulate the frame rate
 clock = pygame.time.Clock()
@@ -59,7 +58,7 @@ enemy_speed = 3
 enemy_height = 19
 enemy_width = 12
 
-# What will make you get points (Enemy variables, survive)
+#What will make you get points (Enemy variables, survive)
 
 #tests if running variable is true and if it is the loop keeps repeating
 def play_game():
@@ -77,6 +76,10 @@ def play_game():
             elif event.type == pygame.KEYDOWN and event.key in (pygame.K_ESCAPE, pygame.K_q):
                 running = False
 
+        #Also I want to just say a quick thing about the -= and the += mean, first off the -= is always used for the left side which is the left arrow movement for the game.
+        #And for the += it means it is for the right side which is used for the right arrow only instead of the left arrow, and if we were to switch them over we could get an error,
+        #Or if we switched them together we could get an error, but it would likely go the opposite which is going left will only go to the right, and the same thing as the right side, using right arrow will only make it go left instead of it going it's apporirate way.
+        
         #controls for the game
         keys = pygame.key.get_pressed()
         #move player left
@@ -105,8 +108,10 @@ def play_game():
             bullet.y += bullet_speed
             if bullet.bottom < 0:
                 bullets.remove(bullet)
+
+        #This statement below me is that the bullets will be drawn out is when you are shooting which is using the space bar and when you shoot, it make a small rectangle when shoot out becuase I made them in the sizes on lines 98 - 101.
         
-        # Drawing the game out
+        #Drawing the game out
         for bullet in bullets:
             pygame.draw.rect(screen, WHITE, bullet)
         screen.blit(player, player_rect)
@@ -115,14 +120,21 @@ def play_game():
         pygame.display.flip()
 
 def start_menu():
+
     while True:
+
+        #I got these lines of code from geeksforgeeks.com and to my understanding it is used for to start the game up when it is running, and the quit_text is to be pressed with the mouse when you are playing the game.
+        #The other one's is for the boxes that say play, and quit which if you were to click "play" it would bring you to the real game, and if you clicked "quit" it would exit out of the game like most games are if not all of them.
+        #And lastly, the screen.blit I'm using is for to show up the game_title which is the "Space Shooter Game", also the "Play" button so people understand if they think it would be the quit button or an other button setting,
+        #Also the quit_text so people can click "quit" at anytime if they don't want to play anymore.
+
         screen.fill(BG)
         #set the screen caption
         game_title_font = pygame.font.SysFont("comicsansms", 72) 
         game_title = game_title_font.render("Space Shooter Game!", True, WHITE)
         mouse = pygame.mouse.get_pos()
-        play_button = pygame.Rect(300, 300, 140, 75)
-        quit_button = pygame.Rect(300, 380, 140, 75)
+        play_button = pygame.Rect(300, 300, 170, 75)
+        quit_button = pygame.Rect(300, 380, 170, 75) 
 
         pygame.draw.rect(screen, LIGHT if play_button.collidepoint(mouse) else DARK, play_button)
         pygame.draw.rect(screen, LIGHT if quit_button.collidepoint(mouse) else DARK, quit_button)

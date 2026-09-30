@@ -48,15 +48,46 @@ player = pygame.transform.scale(player_image_surface, (50, 40))
 player_rect = player.get_rect(center=(screen_width // 2, screen_height - 50))
 player_speed = 10
 
+#position of the enemy 1 on start
+enemy_image = pygame.image.load("TrollfaceEnemy.png")
+enemy_image_surface = enemy_image.convert()
+enemy = pygame.transform.scale(enemy_image_surface, (60, 30))
+enemy_rect = player.get_rect(center=(screen_width // 2, screen_height - 50))
+enemy_speed = 8
+
 #setup bullets
 bullets = []
 bullet_speed = -4
 
 #setup enemies
 enemies = []
-enemy_speed = 3
-enemy_height = 19
-enemy_width = 12
+enemy_down_speed = -2
+
+#Enemies showing up on screen
+#1. Creating the first enemy.
+enemy_image = pygame.image.load("TrollfaceEnemy.png")
+x1=70
+y1=30
+#2. Creating the second enemy.
+enemy_image = pygame.image.load("EvilFaceEmoji.jpeg")
+x1=70
+y1=60
+#3. Creating the thrid enemy.
+enemy_image = pygame.image.load("EnemySmile.jpg")
+x1=70
+y1=90
+#4 Creating the fourth enemy.
+enemy_image = pygame.image.load("MadEmojiEnemy.png")
+x1=70
+y1=80
+#5 Creating the fifth enemy.
+enemy_image = pygame.image.load("EvilCandyLarry.jpeg")
+x1=70
+y1=70
+#6 Creating the sixth enemy.
+enemy_image = pygame.image.load("SadEmojiEnemy.png")
+x1=70
+y1=20
 
 #What will make you get points (Enemy variables, survive)
 
@@ -73,6 +104,7 @@ def play_game():
             #will stop the game loop if escape is pressed (doesn't work in Codio)
             if event.type == pygame.QUIT: 
                 running = False
+            #This code below is showing how the game is kicking you out and that above it and below is responing with the running = True.
             elif event.type == pygame.KEYDOWN and event.key in (pygame.K_ESCAPE, pygame.K_q):
                 running = False
 
@@ -91,13 +123,16 @@ def play_game():
         
         #shoot bullet and lock space bar
         if keys[pygame.K_SPACE] and not space_pressed:
-            space_pressed = True
+            space_pressed = Truescreen = pygame.display.set_mode((screen_width, screen_height))
             if len(bullets) < 8:
                 #This gets the player, sets the width of the bullet
                 #And centers the bullet to the player
                 rect = player.get_rect(center=player_rect.center)
+                #The code is just the width of how long the bullets are, and how long they are when being shot with space.
                 rect.width = 10
+                #This code below is making it the bullets in the center of the character as of the player as well.
                 rect.center = player_rect.center
+                #It is making it so it is adding the bullet to the list which is the bullets list I have.
                 bullets.append(rect)
 
         #unlock space                
@@ -109,7 +144,7 @@ def play_game():
             if bullet.bottom < 0:
                 bullets.remove(bullet)
 
-        #This statement below me is that the bullets will be drawn out is when you are shooting which is using the space bar and when you shoot, it make a small rectangle when shoot out becuase I made them in the sizes on lines 98 - 101.
+        #This statement below me is that the bullets will be drawn out is when you are shooting which is using the space bar and when you shoot, it make a small rectangle when shoot out becuase I made them in the sizes on lines 108 - 114.
         
         #Drawing the game out
         for bullet in bullets:

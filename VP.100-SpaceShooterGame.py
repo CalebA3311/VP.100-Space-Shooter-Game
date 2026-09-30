@@ -39,7 +39,7 @@ DARK = (100, 100, 100)
 BG = (0, 0, 0)
 
 #fills the screen initially with white
-screen.fill(BG)
+screen.fill(BG) 
 
 #position of the player on start
 player_image = pygame.image.load("SpaceShooter.png")
@@ -51,9 +51,44 @@ player_speed = 10
 #position of the enemy 1 on start
 enemy_image = pygame.image.load("TrollfaceEnemy.png")
 enemy_image_surface = enemy_image.convert()
-enemy = pygame.transform.scale(enemy_image_surface, (60, 30))
+enemy = pygame.transform.scale(enemy_image_surface, (60, 10))
 enemy_rect = player.get_rect(center=(screen_width // 2, screen_height - 50))
 enemy_speed = 8
+
+#position of the enemy 2 on start
+enemy_image = pygame.image.load("EvilFaceEmoji.jpeg")
+enemy_image_surface = enemy_image.convert()
+enemy = pygame.transform.scale(enemy_image_surface, (60, 20))
+enemy_rect = player.get_rect(center=(screen_width // 2, screen_height - 50))
+enemy_speed = 5
+
+#position of the enemy 3 on start
+enemy_image = pygame.image.load("EnemySmile.jpg")
+enemy_image_surface = enemy_image.convert()
+enemy = pygame.transform.scale(enemy_image_surface, (60, 80))
+enemy_rect = player.get_rect(center=(screen_width // 2, screen_height - 50))
+enemy_speed = 7
+
+#position of the enemy 4 on start
+enemy_image = pygame.image.load("MadEmojiEnemy.png")
+enemy_image_surface = enemy_image.convert()
+enemy = pygame.transform.scale(enemy_image_surface, (60, 45))
+enemy_rect = player.get_rect(center=(screen_width // 2, screen_height - 50))
+enemy_speed = 11
+
+#position of the enemy 5 on start
+enemy_image = pygame.image.load("EvilCandyLarry.jpeg")
+enemy_image_surface = enemy_image.convert()
+enemy = pygame.transform.scale(enemy_image_surface, (60, 50))
+enemy_rect = player.get_rect(center=(screen_width // 2, screen_height - 50))
+enemy_speed = 8
+
+#And Lastly, position of the enemy 6 on start
+enemy_image = pygame.image.load("SadEmojiEnemy.jpeg")
+enemy_image_surface = enemy_image.convert()
+enemy = pygame.transform.scale(enemy_image_surface, (60, 90))
+enemy_rect = player.get_rect(center=(screen_width // 2, screen_height - 50))
+enemy_speed = 9
 
 #setup bullets
 bullets = []
@@ -66,28 +101,28 @@ enemy_down_speed = -2
 #Enemies showing up on screen
 #1. Creating the first enemy.
 enemy_image = pygame.image.load("TrollfaceEnemy.png")
-x1=70
-y1=30
+x1=60
+y1=10
 #2. Creating the second enemy.
 enemy_image = pygame.image.load("EvilFaceEmoji.jpeg")
-x1=70
-y1=60
+x1=60
+y1=20
 #3. Creating the thrid enemy.
 enemy_image = pygame.image.load("EnemySmile.jpg")
-x1=70
-y1=90
+x1=60
+y1=80
 #4 Creating the fourth enemy.
 enemy_image = pygame.image.load("MadEmojiEnemy.png")
-x1=70
-y1=80
+x1=60
+y1=45
 #5 Creating the fifth enemy.
 enemy_image = pygame.image.load("EvilCandyLarry.jpeg")
-x1=70
-y1=70
+x1=60
+y1=50
 #6 Creating the sixth enemy.
-enemy_image = pygame.image.load("SadEmojiEnemy.png")
-x1=70
-y1=20
+enemy_image = pygame.image.load("SadEmojiEnemy.jpeg")
+x1=60
+y1=90
 
 #What will make you get points (Enemy variables, survive)
 

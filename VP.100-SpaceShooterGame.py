@@ -25,9 +25,6 @@ clock = pygame.time.Clock()
 font = pygame.font.SysFont("comicsansms", 40)
 text = font.render("Space Shooter Game", True, (0, 128, 0))
 
-#the clock will be used to regulate the frame rate
-clock = pygame.time.Clock()
-
 #set the screen caption 
 pygame.display.set_caption("Space Shooter Game!")
 
@@ -47,48 +44,47 @@ player_image_surface = player_image.convert()
 player = pygame.transform.scale(player_image_surface, (50, 40))
 player_rect = player.get_rect(center=(screen_width // 2, screen_height - 50))
 player_speed = 10
+shoot_cooldown = 2
 
-#position of the enemy 1 on start
-enemy_image = pygame.image.load("TrollfaceEnemy.png")
+
+#Enemies showing up on screen
+
+#The convert means to create a copy of something for all these (pygame.image.load) and the code for enemy_image_surface = enemy_image.convert(). 
+#Position of the enemy 1 on start.
+#1. Creating the first enemy.
+enemy_image = pygame.image.load("TrollFaceEnemy.png")
 enemy_image_surface = enemy_image.convert()
 enemy = pygame.transform.scale(enemy_image_surface, (60, 10))
-enemy_rect = player.get_rect(center=(screen_width // 2, screen_height - 50))
-enemy_speed = 8
 
-#position of the enemy 2 on start
+#Position of the enemy 2 on start
+#2. Creating the second enemy.
 enemy_image = pygame.image.load("EvilFaceEmoji.jpeg")
 enemy_image_surface = enemy_image.convert()
 enemy = pygame.transform.scale(enemy_image_surface, (60, 20))
-enemy_rect = player.get_rect(center=(screen_width // 2, screen_height - 50))
-enemy_speed = 5
 
-#position of the enemy 3 on start
+#Position of the enemy 3 on start
+#3. Creating the third enemy.
 enemy_image = pygame.image.load("EnemySmile.jpg")
 enemy_image_surface = enemy_image.convert()
 enemy = pygame.transform.scale(enemy_image_surface, (60, 80))
-enemy_rect = player.get_rect(center=(screen_width // 2, screen_height - 50))
-enemy_speed = 7
 
-#position of the enemy 4 on start
+#Position of the enemy 4 on start
+#4. Creating the fourth enemy.
 enemy_image = pygame.image.load("MadEmojiEnemy.png")
 enemy_image_surface = enemy_image.convert()
 enemy = pygame.transform.scale(enemy_image_surface, (60, 45))
-enemy_rect = player.get_rect(center=(screen_width // 2, screen_height - 50))
-enemy_speed = 11
 
-#position of the enemy 5 on start
+#Position of the enemy 5 on start
+#5. Creating the fifth enemy.
 enemy_image = pygame.image.load("EvilCandyLarry.jpeg")
 enemy_image_surface = enemy_image.convert()
 enemy = pygame.transform.scale(enemy_image_surface, (60, 50))
-enemy_rect = player.get_rect(center=(screen_width // 2, screen_height - 50))
-enemy_speed = 8
 
 #And Lastly, position of the enemy 6 on start
+#6. Creating the sixth enemy.
 enemy_image = pygame.image.load("SadEmojiEnemy.jpeg")
 enemy_image_surface = enemy_image.convert()
 enemy = pygame.transform.scale(enemy_image_surface, (60, 90))
-enemy_rect = player.get_rect(center=(screen_width // 2, screen_height - 50))
-enemy_speed = 9
 
 #setup bullets
 bullets = []
@@ -96,35 +92,12 @@ bullet_speed = -4
 
 #setup enemies
 enemies = []
-enemy_down_speed = -2
+enemy_speed = 2
 
-#Enemies showing up on screen
-#1. Creating the first enemy.
-enemy_image = pygame.image.load("TrollfaceEnemy.png")
-x1=60
-y1=10
-#2. Creating the second enemy.
-enemy_image = pygame.image.load("EvilFaceEmoji.jpeg")
-x1=60
-y1=20
-#3. Creating the thrid enemy.
-enemy_image = pygame.image.load("EnemySmile.jpg")
-x1=60
-y1=80
-#4 Creating the fourth enemy.
-enemy_image = pygame.image.load("MadEmojiEnemy.png")
-x1=60
-y1=45
-#5 Creating the fifth enemy.
-enemy_image = pygame.image.load("EvilCandyLarry.jpeg")
-x1=60
-y1=50
-#6 Creating the sixth enemy.
-enemy_image = pygame.image.load("SadEmojiEnemy.jpeg")
-x1=60
-y1=90
-
-#What will make you get points (Enemy variables, survive)
+#What will make you get points in the game for now.
+#1. Defeating enemies ofcourse.
+#2. And maybe for how long you stay alive.
+#3. That is pretty much it.
 
 #tests if running variable is true and if it is the loop keeps repeating
 def play_game():
@@ -136,7 +109,7 @@ def play_game():
         screen.fill((0, 0, 0))
         #iterates over the current list of events(checks for events)  
         for event in pygame.event.get(): 
-            #will stop the game loop if escape is pressed (doesn't work in Codio)
+            #will stop the game loop if escape is presses     
             if event.type == pygame.QUIT: 
                 running = False
             #This code below is showing how the game is kicking you out and that above it and below is responing with the running = True.
@@ -174,19 +147,26 @@ def play_game():
         if not keys[pygame.K_SPACE] and space_pressed:
             space_pressed = False
 
-        for bullet in bullets:
+        #The [:] means that it is actually making the copy of the bullets in the game and the program.
+
+        for bullet in bullets[:]:
             bullet.y += bullet_speed
             if bullet.bottom < 0:
                 bullets.remove(bullet)
 
         #This statement below me is that the bullets will be drawn out is when you are shooting which is using the space bar and when you shoot, it make a small rectangle when shoot out becuase I made them in the sizes on lines 108 - 114.
         
-        #Drawing the game out
+        #Drawing the game bullets out, and the game as well.
         for bullet in bullets:
             pygame.draw.rect(screen, WHITE, bullet)
         screen.blit(player, player_rect)
 
-        #This function call updates the screen
+        #This code below is so making the enemies come down in the game.
+
+        for enemy in enemies:
+            enemy.y += 4
+
+        #This function call updates to the screen
         pygame.display.flip()
 
 def start_menu():
@@ -195,7 +175,7 @@ def start_menu():
 
         #I got these lines of code from geeksforgeeks.com and to my understanding it is used for to start the game up when it is running, and the quit_text is to be pressed with the mouse when you are playing the game.
         #The other one's is for the boxes that say play, and quit which if you were to click "play" it would bring you to the real game, and if you clicked "quit" it would exit out of the game like most games are if not all of them.
-        #And lastly, the screen.blit I'm using is for to show up the game_title which is the "Space Shooter Game", also the "Play" button so people understand if they think it would be the quit button or an other button setting,
+        #And lastly, the screen.blit I'm using is for to show up the game_title which is the "Space Shooter Game", also the "Play" button I put there so people understand if they think it would be the quit button or an other button setting,
         #Also the quit_text so people can click "quit" at anytime if they don't want to play anymore.
 
         screen.fill(BG)

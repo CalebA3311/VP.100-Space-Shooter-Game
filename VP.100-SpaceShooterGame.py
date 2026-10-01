@@ -46,7 +46,6 @@ player_rect = player.get_rect(center=(screen_width // 2, screen_height - 50))
 player_speed = 10
 shoot_cooldown = 2
 
-
 #Enemies showing up on screen
 
 #The convert means to create a copy of something for all these (pygame.image.load) and the code for enemy_image_surface = enemy_image.convert(). 
@@ -113,6 +112,7 @@ def play_game():
             if event.type == pygame.QUIT: 
                 running = False
             #This code below is showing how the game is kicking you out and that above it and below is responing with the running = True.
+            #I know this already but when you click on on esc key in the top left of the keyboard it will kick you back to the start screen, and the same thing with the q key which will do the same thing with the esc key.
             elif event.type == pygame.KEYDOWN and event.key in (pygame.K_ESCAPE, pygame.K_q):
                 running = False
 
@@ -122,10 +122,10 @@ def play_game():
         
         #controls for the game
         keys = pygame.key.get_pressed()
-        #move player left
+        #move player left, which will be used for the left arrow only and not the a on the keyboard.
         if keys[pygame.K_LEFT] and player_rect.left > 0:
             player_rect.x -= player_speed
-        #move player right
+        #move player right, which will be used for the rigth arrow only not like the d on the keyboard.
         if keys[pygame.K_RIGHT] and player_rect.right < screen_width:
             player_rect.x += player_speed
         
@@ -165,6 +165,20 @@ def play_game():
 
         for enemy in enemies:
             enemy.y += 4
+
+        #This is to get the enemies to be drawed in the screen
+
+        for enemy in enemies:
+            pygame.draw.rect("TrollFaceEnemy.png", 50, 50)
+            enemy_image_surface = enemy_image.convert()
+            enemy = pygame.transform.scale(enemy_image_surface, (60, 50))
+            enemy.get_rect(center=(screen_width // 2, screen_height - 50))
+
+            pygame.draw.rect("EvilFaceEmoji.jpeg", 50, 50)
+            pygame.draw.rect("EnemySmile.jpg", 50, 50)
+            pygame.draw.rect("MadEmojiEnemy.png", 50, 50)
+            pygame.draw.rect("EvilCandyLarry.jpeg", 50, 50)
+            pygame.draw.rect("SadEmojiEnemy.jpeg", 50, 50)
 
         #This function call updates to the screen
         pygame.display.flip()
@@ -208,6 +222,8 @@ def start_menu():
                 if quit_button.collidepoint(mouse):
                     pygame.quit()
                     sys.exit()
+
+        #This is the display update which update the game each time when running it.
 
         pygame.display.update()
 
